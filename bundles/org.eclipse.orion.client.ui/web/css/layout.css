@@ -614,8 +614,8 @@ hard-coded numbers elsewhere.
 /* This is a more traditional nested list, so we basically have to undo the mess made in the .sideMenu styling */
 .topRowBanner .dropDownContainer {
 	z-index: 300; /* ugh */
-	background-color: #4a4a4a;
-	border-color: #333;
+	/*background-color: #4a4a4a;*/
+	/*border-color: #333;*/
 	border-bottom: none;
 	box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.4);
 	min-width: 200px;
@@ -626,37 +626,42 @@ hard-coded numbers elsewhere.
 	text-align: left;
 }
 .topRowBanner .sideMenuList a {
-	color: white;
+	/*color: white;*/
 }
 .topRowBanner .sideMenuItem {
 	display: list-item;
-	border: none;
+	/*border: none;*/
+	border-bottom: 1px solid #ddd;
 	padding: 0;
+	font-size: 12px !important;
 }
 .topRowBanner .sideMenuItem:last-child {
 	margin-bottom:0;
 }
 .topRowBanner .sideMenuItem>a {
-	background: #666;
-	padding: 11px 0 11px 8px;
-	width: calc(100% - 8px); /* account for our padding */
+	/*background: #666;*/
+	padding: 8px 0 0 8px;
+	width: calc(100% - 8px);
 }
 /* Have to override junk set by dropDownContainer ui li a:active*/
 .topRowBanner .sideMenuItem>a:active {
-	background: #666;
+	/*background: #666;*/
 }
 .topRowBanner .sideMenuItem .icon {
-	padding-top: -4px;
+	/*padding-top: -4px;*/
+	display: none;
 }
 .topRowBanner .sideMenuItem .label{
 	display: inline-block;
-	padding: 0 0 0 8px;
+	padding: 0 0 0 0; /*0 0 0 8px if we bring back the icon*/
 }
 .topRowBanner .sideMenuItemActive {
-	border-color: transparent;
+	/*border-color: transparent;*/
+	border-top: none;
+	background: inherit;
 }
 .topRowBanner .sideMenuItemActive .sideMenuSubMenu {
-	background-color: #4a4a4a;
+	/*background-color: #4a4a4a;*/
 }
 .topRowBanner .sideMenuSubMenu {
 	display: block;
@@ -665,24 +670,25 @@ hard-coded numbers elsewhere.
 .topRowBanner .sideMenuSubMenuItem {
 	display: list-item;
 	background-color: transparent;
-	padding: 8px 0 8px 8px;
+	padding: 0;
 	border: none;
-	border-bottom: 1px solid #333;
+	/*border-bottom: 1px solid #ddd;*/ /* #333 */
 	border-radius: initial;
-	width: calc(100% - 8px);
+	width: 100%;
 }
 .topRowBanner .sideMenuSubMenuItem a {
-	padding: 8px 0 8px 5px;
+	padding: 16px 0 16px 18px;
 	margin: 0;
+	width: calc(100% - 18px);
 }
 .topRowBanner .sideMenuSubMenuItem:only-child {
-	color: white;
+	/*color: white;*/
 }
 .topRowBanner .sideMenuSubMenuItem:only-child:hover a {
-	color: white; /* TODO should be orange */
+	/*color: white;*/ /* TODO should be orange */
 }
 .topRowBanner .sideMenuSubMenuItem:hover {
-	background-color: #505050;
+	/*background-color: #505050;*/
 }
 .topRowBanner .sideMenuSubMenuItem:before {
 	content: "";
