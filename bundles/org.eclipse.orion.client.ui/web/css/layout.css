@@ -445,8 +445,9 @@ hard-coded numbers elsewhere.
 	border-right:1px solid #ccc;
 }
 
+/* help */
 .sideMenu:hover{
-	z-index: 100;
+	/*z-index: 100;*/
 }
 
 .sideMenu-maximized {
@@ -477,15 +478,22 @@ hard-coded numbers elsewhere.
 
 /* icon links */
 .sideMenuItem>a {
-	color: #bbb !important;
 	text-decoration:none !important;
 	width: 100%;
 	display: inline-block;
 	padding: 9px 0px 12px 0px;
 }
-.sideMenuItem>a:hover{
+.sideMenuItem>a .icon {
+	color: #bbb !important;
+}
+
+.sideMenuItem>a .icon:hover{
 	text-decoration:none;
 	color:white !important;
+}
+
+.sideMenuItem .label {
+	display: none;
 }
 
 .sideMenuItemActive {
@@ -494,7 +502,7 @@ hard-coded numbers elsewhere.
 	border-bottom: 1px solid #666;
 }
 
-.sideMenuItemActive > a {
+.sideMenuItemActive > .icon {
 	color: white !important;
 }
 
@@ -509,7 +517,8 @@ hard-coded numbers elsewhere.
 	cursor: pointer;
 	border-top-right-radius: 5px;
 	border-bottom-right-radius: 5px;
-	z-index: 50;
+	/* This is screwing up the popup */
+	/*z-index: 50;*/
 }
 
 /* sub menus */
@@ -589,10 +598,10 @@ hard-coded numbers elsewhere.
 	display: inline-block;
 }
 
-.sideMenuItem:hover ul { 
+/* never display */
+/*.sideMenuItem:hover ul { 
     display:inline-block;
-}
-
+}*/
 /* .sideMenuitem:hover > li:hover ul {
     display: block;
     position: absolute;
@@ -600,6 +609,58 @@ hard-coded numbers elsewhere.
     border-left: 1px solid #f39cbd;
 } */
 /* ----- side menu end ----- */
+
+/* ----- begin fully exploded hamburger menu ---- */
+/* This is a more traditional nested list, so we basically have to undo the mess made in the .sideMenu styling */
+.topRowBanner .dropDownContainer {
+	z-index: 300; /* ugh */
+	background-color: #4a4a4a;
+	min-width: 200px;
+}
+.topRowBanner .sideMenuList {
+	/*width: auto;*/
+	text-align: left;
+}
+.topRowBanner .sideMenuList a {
+	color: white;
+}
+.topRowBanner .sideMenuItem {
+	display: list-item;
+	border: none;
+	margin-bottom: 20px;
+	padding: 5px 0 0 0;
+}
+.topRowBanner .sideMenuItem>a {
+	border-bottom: 2px solid #666;
+	padding: 0 0 5px 8px;
+}
+.topRowBanner .sideMenuItem .label{
+	display: inline-block;
+	padding: 0 0 0 15px;
+}
+.topRowBanner .sideMenuItemActive {
+	border-color: transparent;
+}
+.topRowBanner .sideMenuItemActive .sideMenuSubMenu {
+	background-color: #4a4a4a;
+}
+.topRowBanner .sideMenuSubMenu {
+	display: block;
+	position: static;
+}
+.topRowBanner .sideMenuSubMenuItem {
+	display: list-item;
+	border: none;
+	background-color: transparent;
+}
+.topRowBanner .sideMenuSubMenuItem:only-child {
+	color: white;
+}
+.topRowBanner .sideMenuSubMenuItem:before {
+	content: "";
+	display: none;
+}
+/* ----- begin fully exploded hamburger menu ---- */
 
 .mainContent{
 	position:absolute;

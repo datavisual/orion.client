@@ -103,15 +103,21 @@ define([
 		generateNavigationMenu: mCustomGlobalCommands.generateNavigationMenu || function (parentId, serviceRegistry, commandRegistry, prefsService, searcher, handler, /* optional */ editor) {
 			var sideMenuParent = lib.node("sideMenu"); //$NON-NLS-0$
 			if (sideMenuParent) {
-				var nav = lib.node('centralNavigation'); //$NON-NLS-0$
+				var hamburgerNode = lib.node('centralNavigation'); //$NON-NLS-0$
 				new mTooltip.Tooltip({
-					node: nav,
+					node: hamburgerNode,
 					text: messages["CentralNavTooltip"], //$NON-NLS-0$
 					position: ["right"] //$NON-NLS-0$
 				});
 
-				sideMenu = this.sideMenu = new SideMenu(sideMenuParent, lib.node("pageContent")); //$NON-NLS-0$
-				nav.addEventListener("click", sideMenu.toggleSideMenu.bind(sideMenu)); //$NON-NLS-0$
+				sideMenu = this.sideMenu = new SideMenu({
+					parent: sideMenuParent,
+					// TODO factor popup construction out of SideMenu?
+					popupTrigger: hamburgerNode,
+					popupParent: lib.node("primaryNav"), //$NON-NLS-0$
+					content: lib.node("pageContent"), //$NON-NLS-0$
+				});
+//				nav.addEventListener("click", sideMenu.toggleSideMenu.bind(sideMenu)); //$NON-NLS-0$
 				
 				var sideMenuToggle = lib.node("sideMenuToggle"); //$NON-NLS-0$
 				if (sideMenuToggle) {

@@ -18,12 +18,22 @@ define([
 	'orion/PageLinks',
 	'orion/PageUtil',
 	'orion/URITemplate',
-	'orion/URL-shim'
-], function(mCommands, objects, lib, PageLinks, PageUtil, URITemplate, _) {
+	'orion/URL-shim',
+	'orion/widgets/input/DropDownMenu'
+], function(mCommands, objects, lib, PageLinks, PageUtil, URITemplate, _, DropDownMenu) {
 
-	function SideMenu(parentNode, contentNode){
-		this.parentNode = lib.node(parentNode);
-		this.contentNode = lib.node(contentNode);
+	/**
+	 * @param {String|Element} options.parentNode
+	 * @param {String|Element} [options.content] Main content node of page
+	 * @param {String|Element} [options.popupTrigger]
+	 * @param {String|Element} [options.popupParent]
+	 */
+	function SideMenu(options) {
+		options = options || {};
+		this.parentNode = lib.node(options.parent);
+		this.popupTrigger = lib.node(options.popupTrigger);
+		this.popupParent = lib.node(options.popupParent);
+		this.contentNode = lib.node(options.content);
 		if (!this.parentNode) {
 			throw new Error("Missing parentNode");
 		}
@@ -34,6 +44,12 @@ define([
 		this.anchor = document.createElement("ul");
 		this.anchor.classList.add("sideMenuList");
 		this.parentNode.appendChild(this.anchor);
+
+		if (this.popupTrigger && this.popupParent) {
+			this.popup = new DropDownMenu(this.popupParent, this.popupTrigger, {
+				label: "fjskfsjfks"
+			});
+		}
 	}
 	objects.mixin(SideMenu.prototype, {
 		LOCAL_STORAGE_NAME: "sideMenuNavigation",
@@ -130,7 +146,7 @@ define([
 			this.setSideMenu();
 		},
 		clearMenuItems: function() {
-			this.menuitems = [];
+			this.menuitems = Object.create(null);
 			lib.empty(this.anchor);
 		},
 		getMenuItems: function() {
@@ -300,7 +316,14 @@ define([
 				var category = _self.categories.getCategory(catId);
 				var link = document.createElement("a");
 				link.href = bin[0].href;
-				link.className = category.imageClass;
+				var icon = document.createElement("span");
+				icon.classList.add(category.imageClass);
+				icon.classList.add("icon");
+				var text = document.createElement("span");
+				text.classList.add("label");
+				text.textContent = category.textContent;
+				link.appendChild(icon);
+				link.appendChild(text);
 				menuitem.classList.remove(category.imageClass);
 				menuitem.appendChild(link);
 
@@ -308,25 +331,28 @@ define([
 				var sideMenuSubMenu = document.createElement('ul');
 				sideMenuSubMenu.className="sideMenuSubMenu";
 				bin.forEach( function( item ){
-					var sideMenuSubMenuItem = document.createElement('li');	
-					sideMenuSubMenuItem.className="sideMenuSubMenuItem";
+					var subitem = document.createElement('li');	
+					subitem.className="sideMenuSubMenuItem";
 					
-					var sideMenuSubMenuItemLink = document.createElement('a');
-					sideMenuSubMenuItemLink.href = item;
-					sideMenuSubMenuItemLink.className="sideMenuSubMenuItemLink";
+					var subitemLink = document.createElement('a');
+					subitemLink.href = item;
+					subitemLink.className="sideMenuSubMenuItemLink";
 					
-					var sideMenuSubMenuItemSpan = document.createElement('span');
-					sideMenuSubMenuItemSpan.innerHTML = item.innerHTML;
-					sideMenuSubMenuItemSpan.className="sideMenuSubMenuItemSpan";
+					var subitemSpan = document.createElement('span');
+					subitemSpan.innerHTML = item.innerHTML;
+					subitemSpan.className="sideMenuSubMenuItemSpan";
 					
-					sideMenuSubMenuItemLink.appendChild( sideMenuSubMenuItemSpan );
+					subitemLink.appendChild( subitemSpan );
 					
-					sideMenuSubMenuItem.appendChild(sideMenuSubMenuItemLink);
+					subitem.appendChild(subitemLink);
 					
-					sideMenuSubMenu.appendChild(sideMenuSubMenuItem);
+					sideMenuSubMenu.appendChild(subitem);
 				});
 				menuitem.appendChild(sideMenuSubMenu);
 			});
+
+			// the worst hack
+			this.popup && this.popup.addContent(this.parentNode/*anchor*/.innerHTML);
 		}
 	});
 
