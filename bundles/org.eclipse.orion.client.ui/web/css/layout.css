@@ -590,10 +590,10 @@ hard-coded numbers elsewhere.
 .sideMenuSubMenuItem:only-child:hover {
 	/* background-color: white; */
 }
-.sideMenuSubMenuItem:only-child:hover a {
+/*.sideMenuSubMenuItem:only-child:hover a {
 	color: #333;
 }
-
+*/
 .sideMenuSubMenuItem a span {
 	display: inline-block;
 }
@@ -615,7 +615,11 @@ hard-coded numbers elsewhere.
 .topRowBanner .dropDownContainer {
 	z-index: 300; /* ugh */
 	background-color: #4a4a4a;
+	border-color: #333;
+	border-bottom: none;
+	box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.4);
 	min-width: 200px;
+	padding: 0;
 }
 .topRowBanner .sideMenuList {
 	/*width: auto;*/
@@ -627,16 +631,26 @@ hard-coded numbers elsewhere.
 .topRowBanner .sideMenuItem {
 	display: list-item;
 	border: none;
-	margin-bottom: 20px;
-	padding: 5px 0 0 0;
+	padding: 0;
+}
+.topRowBanner .sideMenuItem:last-child {
+	margin-bottom:0;
 }
 .topRowBanner .sideMenuItem>a {
-	border-bottom: 2px solid #666;
-	padding: 0 0 5px 8px;
+	background: #666;
+	padding: 11px 0 11px 8px;
+	width: calc(100% - 8px); /* account for our padding */
+}
+/* Have to override junk set by dropDownContainer ui li a:active*/
+.topRowBanner .sideMenuItem>a:active {
+	background: #666;
+}
+.topRowBanner .sideMenuItem .icon {
+	padding-top: -4px;
 }
 .topRowBanner .sideMenuItem .label{
 	display: inline-block;
-	padding: 0 0 0 15px;
+	padding: 0 0 0 8px;
 }
 .topRowBanner .sideMenuItemActive {
 	border-color: transparent;
@@ -650,11 +664,25 @@ hard-coded numbers elsewhere.
 }
 .topRowBanner .sideMenuSubMenuItem {
 	display: list-item;
-	border: none;
 	background-color: transparent;
+	padding: 8px 0 8px 8px;
+	border: none;
+	border-bottom: 1px solid #333;
+	border-radius: initial;
+	width: calc(100% - 8px);
+}
+.topRowBanner .sideMenuSubMenuItem a {
+	padding: 8px 0 8px 5px;
+	margin: 0;
 }
 .topRowBanner .sideMenuSubMenuItem:only-child {
 	color: white;
+}
+.topRowBanner .sideMenuSubMenuItem:only-child:hover a {
+	color: white; /* TODO should be orange */
+}
+.topRowBanner .sideMenuSubMenuItem:hover {
+	background-color: #505050;
 }
 .topRowBanner .sideMenuSubMenuItem:before {
 	content: "";
