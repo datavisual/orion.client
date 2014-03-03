@@ -216,11 +216,27 @@
 		</replace>
 	</target>
 
-	<target name="requirejs" if="minify">
+	<!-- These 3 tasks are just for conditionally removing existing ${staging} and ${optimized} -->
+	<target name="checkDirs">
+		<available file="${staging}"   type="dir" property="staging.exists" />
+		<available file="${optimized}" type="dir" property="optimized.exists" />
+	</target>
+	<target name="cleanStaging" if="staging.exists">
+		<echo message="Removing ${staging}" />
+		<delete>
+			<fileset dir="${staging}" />
+		</delete>
+	</target>
+	<target name="cleanOptimized" if="optimized.exists">
+		<echo message="Removing ${optimized}" />
+		<delete>
+			<fileset dir="${optimized}" />
+		</delete>
+	</target>
+	
+	<target name="requirejs" depends="checkDirs, cleanStaging, cleanOptimized" if="minify">
 	    <echo message="Minification started..."/>
 
-		<delete dir="${staging}" />
-		<delete dir="${optimized}" />
 		<mkdir dir="${staging}" />
 		<mkdir dir="${optimized}" />
 		<antcall target="editorClean">
